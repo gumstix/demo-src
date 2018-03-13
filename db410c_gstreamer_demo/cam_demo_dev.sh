@@ -18,7 +18,7 @@ function hdmi_stream {
   2)
       gst-launch-1.0 -v -e v4l2src device=/dev/video1 ! glimagesink; ;;
   3)
-      gst-launch-1.0 -v -e v4l2src device=/dev/video0 ! textoverlay text='CAM0' halignment=left valignment=top font-desc='Sans Italic 24' ! videomixer name=mix sink_1::xpos=920 sink_1::ypos=0 sink_1::zorder=3 ! glimagesink v4l2src device=/dev/video1 ! textoverlay text='CAM1' halignment=left valignment=top font-desc='Sans Italic 24' ! mix.; ;;
+      gst-launch-1.0 -v -e v4l2src device=/dev/video0 ! 'video/x-raw,format=UYVY,width=1280,height=720,framerate=10/1' ! textoverlay text='CAM0' halignment=left valignment=top font-desc='Sans Italic 24' ! glvideomixer name=mix sink_1::xpos=0 sink_1::ypos=640 sink_0::zorder=0 sink_1::zorder=1 ! glimagesink v4l2src device=/dev/video1 ! 'video/x-raw,format=UYVY,width=1280,height=720,framerate=10/1' ! textoverlay text='CAM1' halignment=left valignment=top font-desc='Sans Italic 24' ! mix.; ;;
   *) echo "Invalid camera option";;
 esac
 } 
@@ -57,7 +57,12 @@ case "${camera}"
 esac
 
 if ! [[ $ip_addr =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-  resolution="UYVY2X8/1920x1080"
+  if [ $camera -eq 3 ]; then
+    resolution="UYVY2X8/1280x720"
+  else
+    resolution="UYVY2X8/1920x1080"
+  fi
+  echo $resolution
   cam1_formats='"ov5640 1-0074":0[fmt:'"$resolution"' field:none],"msm_csiphy1":0[fmt:'"$resolution"' field:none],"msm_csid1":0[fmt:'"$resolution"' field:none],"msm_ispif1":0[fmt:'"$resolution"' field:none],"msm_vfe0_rdi1":0[fmt:'"$resolution"' field:none]'
   cam0_formats='"ov5640 1-0076":0[fmt:'"$resolution"' field:none],"msm_csiphy0":0[fmt:'"$resolution"' field:none],"msm_csid0":0[fmt:'"$resolution"' field:none],"msm_ispif0":0[fmt:'"$resolution"' field:none],"msm_vfe0_rdi0":0[fmt:'"$resolution"' field:none]'
   echo $cam0_formats
