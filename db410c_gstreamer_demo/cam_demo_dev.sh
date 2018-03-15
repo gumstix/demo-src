@@ -5,7 +5,7 @@ case "${camera}"
   in
   1)  gst-launch-1.0 -v -e v4l2src device=/dev/video0 ! 'video/x-raw,format=UYVY,width=640,height=480,n-threads=2' ! videoflip method=counterclockwise ! videoconvert ! $videoencoder ! h264parse ! rtph264pay ! udpsink host="$ip_addr" "$port"; ;;
   2)  gst-launch-1.0 -v -e v4l2src device=/dev/video1 ! 'video/x-raw,format=UYVY,width=640,height=480,n-threads=2' ! videoflip method=rotate-180 ! videoconvert ! $videoencoder ! h264parse ! rtph264pay ! udpsink host="$ip_addr" "$port"; ;;
-  3)  gst-launch-1.0 -v -e v4l2src device=/dev/video0 ! 'video/x-raw,format=UYVY,width=640,height=480,framerate=10/1' ! textoverlay text='CAM0' halignment=left valignment=top font-desc='Sans Italic 24' ! videomixer name=mix sink_1::xpos=480 sink_1::ypos=0 sink_1::zorder=3 ! videoconvert ! $videoencoder ! h264parse ! rtph264pay ! udpsink host="$ip_addr" "$port" v4l2src device=/dev/video1 ! 'video/x-raw,format=UYVY,width=640,height=480,framerate=10/1' ! videoflip method=rotate-180 ! textoverlay text='CAM1' halignment=left valignment=top font-desc='Sans Italic 24' ! mix.; ;;
+  3)  gst-launch-1.0 -v -e v4l2src device=/dev/video0 ! 'video/x-raw,format=UYVY,width=640,height=480,framerate=10/1' ! textoverlay text='CAM0' halignment=left valignment=top font-desc='Sans Italic 24' ! videomixer name=mix sink_1::xpos=0 sink_1::ypos=480 sink_1::zorder=3 ! videoconvert ! $videoencoder ! h264parse ! rtph264pay ! udpsink host="$ip_addr" "$port" v4l2src device=/dev/video1 ! 'video/x-raw,format=UYVY,width=640,height=480,framerate=10/1' ! videoflip method=rotate-180 ! textoverlay text='CAM1' halignment=left valignment=top font-desc='Sans Italic 24' ! mix.; ;;
   *) echo "Invalid camera option";;
 esac
 }
