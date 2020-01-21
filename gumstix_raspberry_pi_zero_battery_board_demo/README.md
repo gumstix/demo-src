@@ -96,8 +96,8 @@ dtoverlay=bmi160-i2c
 ```
 
 3. Download a copy of sensor_overlay.py. 
-	3a. Open sensor_overlay.py so that you can edit it’s contents.
-	3b. On line 44, change the <HOST_IP_ADDRESS> to the IP address of your host machine, to which you will be streaming the video to
+    - Open sensor_overlay.py so that you can edit it’s contents.
+    - On line 44, change the <HOST_IP_ADDRESS> to the IP address of your host machine, to which you will be streaming the video to
 
 4. Copy the sensor_overlay.py into the rootfs/home/pi folder
 
