@@ -12,10 +12,12 @@ Where sdX is the location of your SD card (to find the location of the SD card, 
 
 ## Setting up SSH:
 
+Mount the 2 partitions (boot and rootfs) of the SD card.
+
 In the boot partition, create an empty file called “ssh” 
 
-In the boot partition, create a file called wpa_supplicant.conf. Enter your WIFI_SSID and WIFI_PASSWORD for the ssid and psk respectively. You will also need to fill in the entry for “country” with the ISO code of your country (eg: Canada = CA).
-Within it, copy and paste the following lines:
+In the rootfs partition, navigate to /etc/wpa_supplicant/ and open the file “wpa_supplicant.conf”. 
+Copy and paste the following lines into wpa_supplicant.conf:
 ```
 country=ISO_code_of_your_country
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -28,6 +30,7 @@ psk="WIFI_PASSWORD"
 key_mgmt=WPA-PSK
 }
 ```
+Enter your WIFI_SSID and WIFI_PASSWORD for the ssid and psk respectively. You will also need to fill in the entry for “country” with the ISO code of your country (eg: Canada = CA). Note, the file will already contain the lines  “ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev” and “update_config=1”, so you can add to the file so that its contents matches what is shown above, or just overwrite the entire file with the lines above.
 
 In the rootfs, navigate to /etc/ssh/sshd_config. Edit the sshd_config file, by adding the following line to the end of the file: 
 ```
