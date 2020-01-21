@@ -60,12 +60,13 @@ $ sudo apt update
 
 ## Install Gstreamer1.0
 ```
-$ sudo apt-get install gstreamer1.0-tools
-$ sudo apt-get install gstreamer1.0-plugins-bad
-$ sudo apt-get install gstreamer1.0-plugins-good
-$ sudo apt-get install gstreamer1.0-omx
-$ sudo apt-get install python3-gi
-$ sudo apt-get install python-gst-1.0
+$ sudo apt-get install gstreamer1.0-tools \
+              gstreamer1.0-plugins-bad \
+              gstreamer1.0-plugins-good \
+              gstreamer1.0-omx \
+              python3-gi \
+              python-gst-1.0
+
 ```
   
 If at any time you get an error that says “Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?” or “Failed to fetch…” when running the gstreamer1.0 install commands, run “sudo apt-get update --fix-missing”, and try running the failing command again.
