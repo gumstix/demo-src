@@ -14,9 +14,9 @@ Where sdX is the location of your SD card (to find the location of the SD card, 
 
 Mount the 2 partitions (boot and rootfs) of the SD card.
 
-In the boot partition, create an empty file called “ssh” 
+1. In the boot partition, create an empty file called “ssh” 
 
-In the rootfs partition, navigate to /etc/wpa_supplicant/ and open the file “wpa_supplicant.conf”. 
+2. In the rootfs partition, navigate to /etc/wpa_supplicant/ and open the file “wpa_supplicant.conf”. 
 Copy and paste the following lines into wpa_supplicant.conf:
 ```
 country=ISO_code_of_your_country
@@ -32,7 +32,7 @@ key_mgmt=WPA-PSK
 ```
 Enter your WIFI_SSID and WIFI_PASSWORD for the ssid and psk respectively. You will also need to fill in the entry for “country” with the ISO code of your country (eg: Canada = CA). Note, the file will already contain the lines  “ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev” and “update_config=1”, so you can add to the file so that its contents matches what is shown above, or just overwrite the entire file with the lines above.
 
-In the rootfs, navigate to /etc/ssh/sshd_config. Edit the sshd_config file, by adding the following line to the end of the file: 
+3. In the rootfs, navigate to /etc/ssh/sshd_config. Edit the sshd_config file, by adding the following line to the end of the file: 
 ```
 IPQoS cs0 cs0
 ```
@@ -88,16 +88,18 @@ If at any time you get an error that says “Unable to fetch some archives, mayb
 At this point, your Raspberry Pi Zero has all the necessary software to run this demo. Turn off the Raspberry Pi Zero, and insert the SD card into the host computer.
 Mount the 2 partitions (boot and rootfs) of the SD card (most computers will do this automatically): 
 
-Download a copy of the bmi160-i2c.dtbo, and copy the bmi160-i2c.dtbo into the overlay folder, within the boot partition (ie: /boot/overlays/ )
-Open the config.txt file in the boot partition, and enable the bmi160-i2c.dtbo overlay by adding the following line into the config.txt:
+1. Download a copy of the bmi160-i2c.dtbo, and copy the bmi160-i2c.dtbo into the overlay folder, within the boot partition (ie: /boot/overlays/). 
+
+2. Open the config.txt file in the boot partition, and enable the bmi160-i2c.dtbo overlay by adding the following line into the config.txt:
 ```
 dtoverlay=bmi160-i2c
 ```
 
-Download a copy of sensor_overlay.py 
-Open sensor_overlay.py so that you can edit it’s contents
-On line 44, change the <HOST_IP_ADDRESS> to the IP address of your host machine, to which you will be streaming the video to
-Copy the sensor_overlay.py into the rootfs/home/pi folder
+3. Download a copy of sensor_overlay.py. 
+	3a. Open sensor_overlay.py so that you can edit it’s contents.
+	3b. On line 44, change the <HOST_IP_ADDRESS> to the IP address of your host machine, to which you will be streaming the video to
+
+4. Copy the sensor_overlay.py into the rootfs/home/pi folder
 
 Remove the SD card from your host computer and place it back onto the Raspberry Pi Zero. Power on the Raspberry Pi Zero and ssh into it again.
 
