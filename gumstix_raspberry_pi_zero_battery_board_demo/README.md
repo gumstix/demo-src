@@ -1,4 +1,4 @@
-# Gumstix Raspberry Pi Zero Batther Board Demo
+# Gumstix Raspberry Pi Zero Battery Board Demo
 
 ## Download and flash Gumstix’s Raspbian Lite image 
 Download the Gumstix Raspbian Lite image from:
