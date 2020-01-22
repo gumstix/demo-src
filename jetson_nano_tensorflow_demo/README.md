@@ -118,7 +118,7 @@ To verify that TensorFlow is working on the Jetson Nano, run the following comma
 ```
 # nvpmodel -m 0
 # jetson_clocks
-# cd​ /usr/​ local​ /tensorflow-tools/benchmarks/scripts/tf_cnn_benchmarks/
+# cd​ /usr/​local​/tensorflow-tools/benchmarks/scripts/tf_cnn_benchmarks/
 # python3 tf_cnn_benchmarks.py --data_format=NHWC --device=gpu
 ```
 You should see activity on the SSH terminal. If it completes correctly, you will see it output a metric of “total images/sec: ####.##”. 
