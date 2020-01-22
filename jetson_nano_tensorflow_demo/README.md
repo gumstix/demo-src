@@ -125,6 +125,7 @@ You should see activity on the SSH terminal. If it completes correctly, you will
 
 ![figure9:Expected output of Tensorflow benchmark](figures/figure9.jpeg)
 Figure 9: Expected output of Tensorflow benchmark
+
 Note, you can compare the TensorFlow performance on the GPU to the CPU performance by changing the --device to “cpu”. Try running the following command:
 ```
 # python3 tf_cnn_benchmarks.py --data_format=NHWC --device=cpu
