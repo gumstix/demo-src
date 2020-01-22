@@ -89,8 +89,10 @@ Figure 7: Configuration to test camera functionality
 $ ssh root@jetson-nano.local
 ```
 After answering “yes” to the prompts, you should see:
+```
 root@jetson-nano:~#
-3. To stream video from the camera to the HDMI monitor, run the following command in the  SSH terminal:
+```
+3. To stream video from the camera to the HDMI monitor, run the following command in the SSH terminal:
 ```
 # nvgstcapture-1.0
 ```
@@ -108,7 +110,9 @@ Power on the Gumstix Jetson Nano Dev Board. Once it’s booted up, SSH into the 
 $ ssh root@jetson-nano.local
 ```
 After answering “yes” to the prompts, you should see:
+```
 root@jetson-nano:~#
+```
 ### Run a benchmark test for TensorFlow
 To verify that TensorFlow is working on the Jetson Nano, run the following commands in the SSH terminal:
 ```
@@ -123,7 +127,7 @@ You should see activity on the SSH terminal. If it completes correctly, you will
 Figure 9: Expected output of Tensorflow benchmark
 Note, you can compare the TensorFlow performance on the GPU to the CPU performance by changing the --device to “cpu”. Try running the following command:
 ```
-# python3 /usr/local/tensorflow-tools/benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py --data_format=NHWC --device=cpu
+# python3 tf_cnn_benchmarks.py --data_format=NHWC --device=cpu
 ```
 You will notice, the CPU (~100 images/sec) performs an order of magnitude worse than the GPU (~1000 images/sec).
 
@@ -139,7 +143,7 @@ If everything installs correctly, you will see “Finished processing dependenci
 
 2. On your host machine, open a new terminal and run the following command:
 ```
-$  gst-launch-1.0 -v udpsrc port=5000 ! application/x-rtp,encoding-name=H264,payload=96 ! rtph264depay ! h264parse ! avdec_h264 ! autovideosink
+$ gst-launch-1.0 -v udpsrc port=5000 ! application/x-rtp,encoding-name=H264,payload=96 ! rtph264depay ! h264parse ! avdec_h264 ! autovideosink
 ```
 
 3. In the SSH terminal, run TensorFlow and stream it back to your host machine by running the following command:
@@ -178,13 +182,13 @@ Let’s say you trained your own model, and want to test it out on the Jetson Na
 
 3. On your host machine, open a new terminal and run the following command:
 ```
-$  gst-launch-1.0 -v udpsrc port=5000 ! application/x-rtp,encoding-name=H264,payload=96 ! rtph264depay ! h264parse ! avdec_h264 ! autovideosink
+$ gst-launch-1.0 -v udpsrc port=5000 ! application/x-rtp,encoding-name=H264,payload=96 ! rtph264depay ! h264parse ! avdec_h264 ! autovideosink
 ```
 
-4. Navigate to the /usr/local/tensorflow-tools/tf_trf_models folder. Run the TensorFlow program: 
+4. Navigate to the /usr/local/tensorflow-tools/tf_trt_models folder. Run the TensorFlow program: 
 ```
 # cd ~
-# cd​ /usr/​ local​ /tensorflow-tools/tf_trt_models
+# cd​ /usr/​local​/tensorflow-tools/tf_trt_models
 # python3 camera_tf_trt.py --model ssd_mobilenet_v1_egohands --labelmap data/egohands_label_map.pbtxt --num-classes 1 --ip-address 192.168.xxx.yyy --stealth --build
 ```
 Remember to replace 192.168.xxx.yyy with your actual host machine’s IP address. 
